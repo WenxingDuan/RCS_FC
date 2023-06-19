@@ -8,7 +8,7 @@ This document is a valuable resource for anyone interested in quantum computing,
 
 To get started, simply download the PDF file and start reading!
 
-## Code
+# Code
 
 This code project is designed to provide a detailed analysis of Google's quantum random circuit sampling experiment and their claims of achieving quantum supremacy. The project uses Fourier analysis to evaluate the strength of Google's assertion and explores the discrepancy between experimental findings and theoretical expectations.
 
