@@ -2,7 +2,7 @@
 
 This code project is designed to provide a detailed analysis of Google's quantum random circuit sampling experiment and their claims of achieving quantum supremacy. The project uses Fourier analysis to evaluate the strength of Google's assertion and explores the discrepancy between experimental findings and theoretical expectations.
 
-# Analyzing Google's Quantum Supremacy Experiment - Project Report
+# Project Report
 
 The report contains a detailed analysis of Google's quantum random circuit sampling experiment and their claims of achieving quantum supremacy. The author of this document employed Fourier analysis to evaluate the strength of Google's assertion and encountered an intriguing phenomenon along the way.
 
