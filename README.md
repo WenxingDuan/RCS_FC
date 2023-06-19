@@ -24,4 +24,4 @@ To use this code project, simply run the main script and follow the prompts. The
 
 ## Acknowledgments
 
-This project was inspired by the research of Dr. Raul Garcia-Patron Sanchez and their analysis of Google's quantum supremacy experiment.
+This project was inspired by Dr. Raul Garcia-Patron Sanchez and his inspiration on Google's quantum supremacy experiment.
