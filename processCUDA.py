@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import math
 from tqdm import tqdm
-import numpy as cp
+import cupy as cp
 import sys
 
 
@@ -117,8 +117,8 @@ Zlist = []
 #========================================================
 for filnum in tqdm(range(1, D + 1), desc='Processing circuit'):
 
-    filenames = "e6_" + str(n) + "\\measurements_n" + str(
-        n) + "_m14_s" + str(-1 + filnum) + "_e6_pEFGH.txt"
+    filenames = "e0_" + str(n) + "\\measurements_n" + str(
+        n) + "_m14_s" + str(-1 + filnum) + "_e0_pEFGH.txt"
 
     Z_file = calculate(filenames, n, m, bin_order, sBarList)
     Zlist.append(Z_file)
@@ -127,7 +127,7 @@ for filnum in tqdm(range(1, D + 1), desc='Processing circuit'):
     plt.plot(list(range(1, n + 1)), Z_file[1:])
     plt.plot(list(range(1, n + 1)), [1 / (2**n)] * len(list(range(1, n + 1))))
     plt.yscale("log")
-    plt.savefig("e6_" + str(n) + "\\result\\" + str(-1 + filnum) +
+    plt.savefig("e0_" + str(n) + "\\result\\" + str(-1 + filnum) +
                 "_LOG")
     plt.clf()
 
@@ -137,7 +137,7 @@ Z = Z / D
 Zlist.append(Z)
 
 # ========================================================
-f = open("e6_" + str(n) + "\\result\\result.txt", "w")
+f = open("e0_" + str(n) + "\\result\\result.txt", "w")
 for i in Zlist:
     f.write(",".join([str(j) for j in i]) + "\n")
 # ========================================================
@@ -145,7 +145,7 @@ for i in Zlist:
 plt.plot(list(range(1, n + 1)), list(Z.get())[1:])
 plt.plot(list(range(1, n + 1)), [1 / (2**n)] * len(list(range(1, n + 1))))
 plt.yscale("log")
-plt.savefig("e6_" + str(n) + "\\result\\finalResult_LOG")
+plt.savefig("e0_" + str(n) + "\\result\\finalResult_LOG")
 # plt.show()
 plt.clf()
 
@@ -154,7 +154,7 @@ plt.clf()
 #========================================================
 #========================================================
 
-# Z = calculate("e6_12\measurements_n12_m14_s0_e6_pEFGH.txt", 12, m, bin_order, sBarList)
+# Z = calculate("e0_12\measurements_n12_m14_s0_e0_pEFGH.txt", 12, m, bin_order, sBarList)
 # plt.plot(list(range(1,n + 1)), list(Z)[1:])
 # plt.plot(list(range(1, n + 1)),[1/(2**n)]*len(list(range(1, n + 1))))
 # plt.yscale("log")
