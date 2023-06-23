@@ -104,10 +104,9 @@ def plotHeatmap(ax, n, detail):
     # y_labels = [str(i) for i in range(1, n + 1)]
     ax.set_xticks(x_labels)
     ax.set_yticks(x_labels)
-    x_labels = [str(i) for i in range(1, n+1)]
+    x_labels = [str(i) for i in range(1, n + 1)]
     ax.set_xticklabels(x_labels)
     ax.set_yticklabels(x_labels)
-
 
     im = ax.imshow(square_list,
                    cmap='RdBu',
@@ -115,11 +114,10 @@ def plotHeatmap(ax, n, detail):
                    vmin=-max(max(dz), -min(dz)),
                    vmax=max(max(dz), -min(dz)))
 
-
     fig.colorbar(im, ax=ax)  # 在指定的axes上添加colorbar
 
 
-n = 16
+n = 12
 # n = int(sys.argv[1])
 m = 500000
 D = 10
@@ -140,23 +138,25 @@ Zlist = []
 
 for filnum in tqdm(range(1, D + 1), desc='Processing circuit'):
 
-    filenames = "e0_" + str(n) + "\\measurements_n" + str(n) + "_m14_s" + str(
-        -1 + filnum) + "_e0_pEFGH.txt"
+    # filenames = "e0_" + str(n) + "\\measurements_n" + str(n) + "_m14_s" + str(
+    #     -1 + filnum) + "_e0_pEFGH.txt"
+    filenames = "bit_strings.txt"
 
     Z_file, detail = calculate(filenames, n, m, bin_order, sBarList)
     fig = plt.figure(figsize=(20, 18))
-    ax1 = fig.add_subplot(221) 
-    plotBar(ax1, [str(i) for i in sBarList[1]],
+    ax1 = fig.add_subplot(221)
+    plotBar(ax1, [str(int(math.log(i, 2)+1)) for i in sBarList[1]],
             [detail[int(i)] for i in sBarList[1]])
 
-    ax2 = fig.add_subplot(223, projection='3d') 
+    ax2 = fig.add_subplot(223, projection='3d')
     plot3D(ax2, n, detail)
 
     ax3 = fig.add_subplot(224)
     plotHeatmap(ax3, n, detail)
     # plt.tight_layout()
-    # plt.show()
-    plt.savefig("e0_" + str(n) + "\\s" + str(filnum - 1))
+    plt.show()
+    # plt.savefig("e0_" + str(n) + "\\s" + str(filnum - 1))
+
     Zlist.append(Z_file)
     Z = Z + cp.array(Z_file)
 
