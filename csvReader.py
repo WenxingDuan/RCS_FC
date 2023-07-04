@@ -49,7 +49,9 @@ def read_results(n):
     for i in range(len(y)):
         y[i] = y[i].split(',')
         for j in range(len(y[i])):
-            y[i][j] = float(y[i][j])
+            y[i][j] = float(
+                y[i][j]) if float(y[i][j]) < 1 / (2**n) else 1 / (2**n)
+            # y[i][j] = float(y[i][j])
     return y
 
 
@@ -61,6 +63,6 @@ def plotPredictions(qubit, circuit, n, m):
     f = lambda x: math.e**(theSlope * x + theCof)
     plt.plot(list(range(1, qubit + 1)), data[1:])
     plt.plot(list(range(n, m + 1)), [f(i) for i in range(n, m + 1)])
-
+    plt.plot(list(range(1, qubit + 1)), [1 / (2**qubit) for i in range(1, qubit + 1)])
     plt.yscale("log")
     plt.show()

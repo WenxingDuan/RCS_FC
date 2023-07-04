@@ -12,8 +12,9 @@ def read_results(n):
     for i in range(len(y)):
         y[i] = y[i].split(',')
         for j in range(len(y[i])):
-            y[i][j] = float(y[i][j])
-
+            y[i][j] = float(y[i][j]) if float(y[i][j]) < 1/(2**n) else 1/(2**n)
+            # y[i][j] = float(y[i][j])
+    
     return y
 
 
