@@ -204,7 +204,7 @@ for filnum in tqdm(range(1, D + 1), desc='Processing circuit'):
     detail = dict()
     filename = "C:\\Users\\Duan\OneDrive - University of Edinburgh\\Year 4\\毕设\\doi_10.5061_dryad.k6t1rj8__v11\\n50_m14\\measurements_n" + str(
         n) + "_m14_s" + str(-1 + filnum) + "_e0_pEFGH.txt"
-    filename = "bit_strings.txt"
+    # filename = "bit_strings.txt"
 
     # filename = "e0_" + str(n) + "\\measurements_n" + str(n) + "_m14_s" + str(
     #     -1 + filnum) + "_e0_pEFGH.txt"

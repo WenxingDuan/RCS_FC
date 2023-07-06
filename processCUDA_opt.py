@@ -66,12 +66,12 @@ Zlist = []
 
 if fullCircuit:
     filenames = [
-        "e0_" + str(n) + "\\measurements_n"+str(n)+"_m14_s" + str(i) + "_e0_pEFGH.txt"
+        "Full Circuit\\e0_" + str(n) + "\\measurements_n"+str(n)+"_m14_s" + str(i) + "_e0_pEFGH.txt"
         for i in range(10)
     ]
 else:
     filenames = [
-        "n" + str(n) + "\\measurements_patch_n"+str(n)+"_m14_s1" + str(i) +
+        "Patch Circuit\\n" + str(n) + "\\measurements_patch_n"+str(n)+"_m14_s1" + str(i) +
         "_e18_pEFGH.txt" for i in range(10)
     ]
 resultlist = [1]

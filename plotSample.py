@@ -13,7 +13,7 @@ import numpy
 
 
 def readSampleData(qub, n, size):
-    path = "e0_" + str(qub) + "\\sample\\" + str(size) + "\\" + str(n) + ".txt"
+    path = "Full Circuit\\e0_" + str(qub) + "\\sample\\" + str(size) + "\\" + str(n) + ".txt"
     file1 = open(path, 'r')
     y = file1.readlines()
     for i in range(len(y)):
@@ -24,7 +24,7 @@ def readSampleData(qub, n, size):
 
 
 def readAverageResult(n):
-    path = "e0_" + str(n) + "\\result\\result.txt"
+    path = "Full Circuit\\e0_" + str(n) + "\\result\\result.txt"
     file1 = open(path, 'r')
     y = file1.readlines()
     for i in range(len(y)):
@@ -77,5 +77,5 @@ for qub in qubits:
     handles, labels = plt.gca().get_legend_handles_labels()
     by_label = dict(zip(labels, handles))
     plt.legend(by_label.values(), by_label.keys())
-    plt.savefig("e0_" + str(qub) + "\\sample\\sample_result")
+    plt.savefig("Full Circuit\\e0_" + str(qub) + "\\sample\\sample_result")
     plt.clf()

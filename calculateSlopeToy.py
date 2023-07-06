@@ -4,7 +4,7 @@ import math
 
 
 def read_results(error, size):
-    path = "6bits\\" + str(error) + "\\" + str(size) + "\\result\\result.txt"
+    path = "Toy Circuit\\" + str(error) + "\\" + str(size) + "\\result\\result.txt"
     file1 = open(path, 'r')
     y = file1.readlines()
     for i in range(len(y)):
@@ -29,7 +29,7 @@ for error in range(11):
                             result[i][m]))/abs(n-m)
                     except:
                         pass
-            with open("6bits\\" + str(error) + "\\" + str(size) +
+            with open("Toy Circuit\\" + str(error) + "\\" + str(size) +
                       "\\result\\exp_" + str(i+1) + "_slope.csv",
                       'w',
                       newline='') as file:
@@ -42,7 +42,7 @@ for error in range(11):
                     slope[n][m] = (math.log(result[-1][n]) - math.log(result[-1][m]))/abs(n-m)
                 except:
                     pass
-        with open("6bits\\" + str(error) + "\\" + str(size) +
+        with open("Toy Circuit\\" + str(error) + "\\" + str(size) +
                   "\\result\\final_slope.csv",
                   'w',
                   newline='') as file:

@@ -5,7 +5,7 @@ import numpy as np
 
 
 def read_results(n):
-    path = "e0_" + str(n) + "\\result\\result.txt"
+    path = "Full Circuit\\e0_" + str(n) + "\\result\\result.txt"
 
     file1 = open(path, 'r')
     y = file1.readlines()
@@ -51,12 +51,12 @@ for index in range(12, 25, 2):
                 else:
                     slope[n][m] = predictSlope(result[i], m, n)[0]
                     cof[n][m] = predictSlope(result[i], m, n)[1]
-        with open("e0_" + str(n) + "\\result\\" + str(i) + "_slope.csv",
+        with open("Full Circuit\\e0_" + str(n) + "\\result\\" + str(i) + "_slope.csv",
                   'w',
                   newline='') as file:
             writer = csv.writer(file)
             writer.writerows(slope)
-        with open("e0_" + str(n) + "\\result\\" + str(i) + "_cof.csv",
+        with open("Full Circuit\\e0_" + str(n) + "\\result\\" + str(i) + "_cof.csv",
                   'w',
                   newline='') as file:
             writer = csv.writer(file)
@@ -69,11 +69,11 @@ for index in range(12, 25, 2):
             else:
                 slope[n][m] = predictSlope(result[-1], m, n)[0]
                 cof[n][m] = predictSlope(result[-1], m, n)[1]
-    with open("e0_" + str(n) + "\\result\\final_slope.csv", 'w',
+    with open("Full Circuit\\e0_" + str(n) + "\\result\\final_slope.csv", 'w',
               newline='') as file:
         writer = csv.writer(file)
         writer.writerows(slope)
-    with open("e0_" + str(n) + "\\result\\final_cof.csv", 'w',
+    with open("Full Circuit\\e0_" + str(n) + "\\result\\final_cof.csv", 'w',
               newline='') as file:
         writer = csv.writer(file)
         writer.writerows(cof)

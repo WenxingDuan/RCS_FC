@@ -4,7 +4,7 @@ import math
 
 
 def read_results(n):
-    path = "e0_" + str(n) + "\\result\\result.txt"
+    path = "Full Circuit\\e0_" + str(n) + "\\result\\result.txt"
     file1 = open(path, 'r')
     y = file1.readlines()
     for i in range(len(y)):

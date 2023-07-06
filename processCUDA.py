@@ -117,7 +117,7 @@ Zlist = []
 #========================================================
 for filnum in tqdm(range(1, D + 1), desc='Processing circuit'):
 
-    filenames = "e0_" + str(n) + "\\measurements_n" + str(
+    filenames = "Full Circuit\\e0_" + str(n) + "\\measurements_n" + str(
         n) + "_m14_s" + str(-1 + filnum) + "_e0_pEFGH.txt"
 
     Z_file = calculate(filenames, n, m, bin_order, sBarList)
@@ -127,7 +127,7 @@ for filnum in tqdm(range(1, D + 1), desc='Processing circuit'):
     plt.plot(list(range(1, n + 1)), Z_file[1:])
     plt.plot(list(range(1, n + 1)), [1 / (2**n)] * len(list(range(1, n + 1))))
     plt.yscale("log")
-    plt.savefig("e0_" + str(n) + "\\result\\" + str(-1 + filnum) +
+    plt.savefig("Full Circuit\\e0_" + str(n) + "\\result\\" + str(-1 + filnum) +
                 "_LOG")
     plt.clf()
 
@@ -137,7 +137,7 @@ Z = Z / D
 Zlist.append(Z)
 
 # ========================================================
-f = open("e0_" + str(n) + "\\result\\result.txt", "w")
+f = open("Full Circuit\\e0_" + str(n) + "\\result\\result.txt", "w")
 for i in Zlist:
     f.write(",".join([str(j) for j in i]) + "\n")
 # ========================================================
@@ -145,7 +145,7 @@ for i in Zlist:
 plt.plot(list(range(1, n + 1)), list(Z.get())[1:])
 plt.plot(list(range(1, n + 1)), [1 / (2**n)] * len(list(range(1, n + 1))))
 plt.yscale("log")
-plt.savefig("e0_" + str(n) + "\\result\\finalResult_LOG")
+plt.savefig("Full Circuit\\e0_" + str(n) + "\\result\\finalResult_LOG")
 # plt.show()
 plt.clf()
 
