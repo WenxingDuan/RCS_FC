@@ -138,7 +138,7 @@ Zlist = []
 
 for filnum in tqdm(range(1, D + 1), desc='Processing circuit'):
 
-    filenames = "e0_" + str(n) + "\\measurements_n" + str(n) + "_m14_s" + str(
+    filenames = "Full Circuit\\e0_" + str(n) + "\\measurements_n" + str(n) + "_m14_s" + str(
         -1 + filnum) + "_e0_pEFGH.txt"
     # filenames = "bit_strings.txt"
 

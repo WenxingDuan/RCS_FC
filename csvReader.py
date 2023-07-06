@@ -5,7 +5,7 @@ import math
 
 from matplotlib import pyplot as plt
 
-folders = glob.glob('e0_*')
+folders = glob.glob('Full Circuit\\e0_*')
 slope = {}
 
 for folder in folders:
@@ -60,7 +60,9 @@ def plotPredictions(qubit, circuit, n, m):
     theSlope = readSlope(qubit, circuit, n, m)
     theCof = readCof(qubit, circuit, n, m)
     print(f"y = e ^ ( a x + b ) , a = {theSlope} , b = {theCof}")
-    f = lambda x: math.e**(theSlope * x + theCof)
+    # f = lambda x: math.e**(theSlope * x + theCof)
+    f = lambda x: math.e**(math.e**(theSlope * x + theCof))
+    
     plt.plot(list(range(1, qubit + 1)), data[1:])
     plt.plot(list(range(n, m + 1)), [f(i) for i in range(n, m + 1)])
     plt.plot(list(range(1, qubit + 1)), [1 / (2**qubit) for i in range(1, qubit + 1)])
