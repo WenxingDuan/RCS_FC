@@ -138,11 +138,12 @@ Zlist = []
 
 for filnum in tqdm(range(1, D + 1), desc='Processing circuit'):
 
-    # filenames = "e0_" + str(n) + "\\measurements_n" + str(n) + "_m14_s" + str(
-    #     -1 + filnum) + "_e0_pEFGH.txt"
-    filenames = "bit_strings.txt"
+    filenames = "e0_" + str(n) + "\\measurements_n" + str(n) + "_m14_s" + str(
+        -1 + filnum) + "_e0_pEFGH.txt"
+    # filenames = "bit_strings.txt"
 
     Z_file, detail = calculate(filenames, n, m, bin_order, sBarList)
+    print(detail)
     fig = plt.figure(figsize=(20, 18))
     ax1 = fig.add_subplot(221)
     plotBar(ax1, [str(int(math.log(i, 2)+1)) for i in sBarList[1]],
