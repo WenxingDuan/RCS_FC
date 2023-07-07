@@ -103,18 +103,6 @@ def plotBar(ax, categories, values):
     # plt.show()
 
 
-# def plot3D(ax, n, detail):
-#     _x = np.arange(n)
-#     _y = np.arange(n)
-#     _xx, _yy = np.meshgrid(_x, _y)
-#     x, y = _xx.ravel(), _yy.ravel()
-#     z = np.zeros_like(x)
-#     dx = dy = np.ones_like(z) * 0.5
-#     dz = [
-#         2**x[i] + 2**y[i] if x[i] != y[i] else 0 for i in range(len(x))
-#     ]
-#     ax.bar3d(x, y, z, dx, dy, dz)
-#     # plt.show()
 def plot3D(ax, n, detail):
     _x = np.arange(n).tolist()
     _y = np.arange(n).tolist()
@@ -125,36 +113,6 @@ def plot3D(ax, n, detail):
     dz = [2**x[i] + 2**y[i] if x[i] != y[i] else 0 for i in range(len(x))]
     ax.bar3d(x, y, z, dx, dy, dz)
 
-
-# def plotHeatmap(ax, n, detail):
-#     _x = np.arange(n)
-#     _y = np.arange(n)
-#     _xx, _yy = np.meshgrid(_x, _y)
-#     x, y = _xx.ravel(), _yy.ravel()
-#     z = np.zeros_like(x)
-#     dx = dy = np.ones_like(z) * 0.5
-#     dz = [
-#         detail[2**x[i] + 2**y[i]] if x[i] != y[i] else 0 for i in range(len(x))
-#     ]
-#     square_list = []
-
-#     for i in range(0, len(dz), n):
-#         square_list.append(dz[i:i + n])
-#     x_labels = [i for i in range(0, n)]
-#     # y_labels = [str(i) for i in range(1, n + 1)]
-#     ax.set_xticks(x_labels)
-#     ax.set_yticks(x_labels)
-#     x_labels = [str(i) for i in range(1, n + 1)]
-#     ax.set_xticklabels(x_labels)
-#     ax.set_yticklabels(x_labels)
-
-#     im = ax.imshow(square_list,
-#                    cmap='RdBu',
-#                    origin='lower',
-#                    vmin=-max(max(dz), -min(dz)),
-#                    vmax=max(max(dz), -min(dz)))
-
-#     fig.colorbar(im, ax=ax)  # 在指定的axes上添加colorbar
 
 
 def plotHeatmap(ax, n, detail):
@@ -191,50 +149,53 @@ def plotHeatmap(ax, n, detail):
 def hamming_weight(n):
     return bin(n).count('1')
 
+for n in tqdm(range(16,51,2),desc='Processing qubit', leave=True):
+    # n = 48
+    # print(f"processing n = {n}")
+    # n = int(sys.argv[1])
+    m = 500000
+    D = 10
+    sLength = 2**(n)
 
-n = 48
-# n = int(sys.argv[1])
-m = 500000
-D = 10
-sLength = 2**(n)
+    sBarList = generate_bitstrings(n)
 
-sBarList = generate_bitstrings(n)
+    for filnum in tqdm(range(1, D + 1), desc='Processing circuit', leave=False):
+        detail = dict()
 
-for filnum in tqdm(range(1, D + 1), desc='Processing circuit'):
-    detail = dict()
+        # filename = "bit_strings.txt"
 
-    # filename = "bit_strings.txt"
+        filename = "Full Circuit\\e0_" + str(n) + "\\measurements_n" + str(n) + "_m14_s" + str(
+            -1 + filnum) + "_e0_pEFGH.txt"
 
-    filename = "Full Circuit\\e0_" + str(n) + "\\measurements_n" + str(n) + "_m14_s" + str(
-        -1 + filnum) + "_e0_pEFGH.txt"
+        Z_file = [0 for i in range(n + 1)]
+        f = open(filename, "r")
+        fileListLines = f.readlines()
+        fileList = cp.array([bin_to_int(i) for i in fileListLines])
+        for sBar_num in range(0, len(sBarList)):
+            sBar = sBarList[sBar_num]
+            templ = []
+            # print(len(sBar))
+            for s_num in tqdm(range(len(sBar)), leave=False):
+                s = sBar[s_num]
+                temp = cp.bitwise_and(s, fileList)
+                temp = temp.get()
+                temp = hamming_weight(temp)
+                temp = (-1)**(temp)
+                detail[int(s)] = int(np.sum(temp)) / m
+        # print(detail)
 
-    Z_file = [0 for i in range(n + 1)]
-    f = open(filename, "r")
-    fileListLines = f.readlines()
-    fileList = cp.array([bin_to_int(i) for i in fileListLines])
-    for sBar_num in range(0, len(sBarList)):
-        sBar = sBarList[sBar_num]
-        templ = []
-        # print(len(sBar))
-        for s_num in tqdm(range(len(sBar))):
-            s = sBar[s_num]
-            temp = cp.bitwise_and(s, fileList)
-            temp = temp.get()
-            temp = hamming_weight(temp)
-            temp = (-1)**(temp)
-            detail[int(s)] = int(np.sum(temp)) / m
-    print(detail)
+        fig = plt.figure(figsize=(20, 18))
+        ax1 = fig.add_subplot(211)
+        plotBar(ax1, [str(int(math.log(i, 2) + 1)) for i in sBarList[0]],
+                [detail[int(i)] for i in sBarList[0]])
 
-    fig = plt.figure(figsize=(20, 18))
-    ax1 = fig.add_subplot(211)
-    plotBar(ax1, [str(int(math.log(i, 2) + 1)) for i in sBarList[0]],
-            [detail[int(i)] for i in sBarList[0]])
+        # ax2 = fig.add_subplot(223, projection='3d')
+        # plot3D(ax2, n, detail)
 
-    # ax2 = fig.add_subplot(223, projection='3d')
-    # plot3D(ax2, n, detail)
-
-    ax3 = fig.add_subplot(212)
-    plotHeatmap(ax3, n, detail)
-    # plt.tight_layout()
-    # plt.show()
-    plt.savefig("Full Circuit\\e0_" + str(n) + "\\s" + str(filnum - 1))
+        ax3 = fig.add_subplot(212)
+        plotHeatmap(ax3, n, detail)
+        # plt.tight_layout()
+        # plt.show()
+        plt.savefig("Full Circuit\\e0_" + str(n) + "\\s" + str(filnum - 1))
+        plt.close()
+        plt.close(fig)
