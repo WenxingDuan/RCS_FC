@@ -2,7 +2,7 @@ import os
 import glob
 import csv
 import math
-
+import numpy as np
 from matplotlib import pyplot as plt
 
 folders = glob.glob('Full Circuit\\e0_*')
@@ -59,12 +59,13 @@ def plotPredictions(qubit, circuit, n, m):
     data = read_results(qubit)[circuit]
     theSlope = readSlope(qubit, circuit, n, m)
     theCof = readCof(qubit, circuit, n, m)
-    print(f"y = e ^ ( a x + b ) , a = {theSlope} , b = {theCof}")
+    print(f"a * x ^ b , a = {theSlope} , b = {theCof}")
     # f = lambda x: math.e**(theSlope * x + theCof)
-    f = lambda x: math.e**(math.e**(theSlope * x + theCof))
-    
+    f = lambda x: theSlope* np.power(x, theCof)
+
     plt.plot(list(range(1, qubit + 1)), data[1:])
     plt.plot(list(range(n, m + 1)), [f(i) for i in range(n, m + 1)])
-    plt.plot(list(range(1, qubit + 1)), [1 / (2**qubit) for i in range(1, qubit + 1)])
+    plt.plot(list(range(1, qubit + 1)),
+             [1 / (2**qubit) for i in range(1, qubit + 1)])
     plt.yscale("log")
     plt.show()

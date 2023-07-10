@@ -4,6 +4,7 @@ import math
 import numpy as np
 from scipy.optimize import curve_fit
 
+
 def read_results(n):
     path = "Full Circuit\\e0_" + str(n) + "\\result\\result.txt"
 
@@ -20,7 +21,7 @@ def read_results(n):
 
 
 def func(x, a, b):
-    return math.e**(a * x + b)
+    return a * np.power(x, b)
 
 
 def predictSlope(result, n, m):
@@ -39,7 +40,11 @@ def predictSlope(result, n, m):
     # print(n, m)
 
     # coeff = np.polyfit(x, logy, 1)
-    params, params_covariance = curve_fit(func, x, y)
+    # print(f"{x} {y}")
+    try:
+        params, _ = curve_fit(func, x, y)
+    except:
+        params = [0, 0]
 
     return params
 
