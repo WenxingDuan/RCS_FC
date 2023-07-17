@@ -55,13 +55,16 @@ def read_results(n):
     return y
 
 
+def func(x, a, b):
+    return a / x + b
+
+
 def plotPredictions(qubit, circuit, n, m):
     data = read_results(qubit)[circuit]
     theSlope = readSlope(qubit, circuit, n, m)
     theCof = readCof(qubit, circuit, n, m)
-    print(f"a * x ^ b , a = {theSlope} , b = {theCof}")
-    # f = lambda x: math.e**(theSlope * x + theCof)
-    f = lambda x: theSlope* np.power(x, theCof)
+    print(f"y = e^(f(x)), f(x) = a/x + b , a = {theSlope} , b = {theCof}")
+    f = lambda x: np.exp(func(x, theSlope, theCof))
 
     plt.plot(list(range(1, qubit + 1)), data[1:])
     plt.plot(list(range(n, m + 1)), [f(i) for i in range(n, m + 1)])

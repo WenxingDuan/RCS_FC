@@ -21,26 +21,21 @@ def read_results(n):
 
 
 def func(x, a, b):
-    return a * np.power(x, b)
+    return a / x + b
 
 
 def predictSlope(result, n, m):
     if n < m:
         x = np.array([i for i in range(n, m + 1)])
         y = np.array(result[n:m + 1])
+        y = np.log(y)
+
     else:
-        # print("aaaa")
+
         x = np.array([i for i in range(m, n + 1)])
         y = np.array(result[m:n + 1])
-    # print(y)
-    # logy = np.log(np.log(y))
-    # logy = np.log(y)
-    # print(x)
-    # print(logy)
-    # print(n, m)
+        y = np.log(y)
 
-    # coeff = np.polyfit(x, logy, 1)
-    # print(f"{x} {y}")
     try:
         params, _ = curve_fit(func, x, y)
     except:
@@ -53,6 +48,8 @@ for index in range(12, 25, 2):
     slope = [[0 for i in range(index + 1)] for j in range(index + 1)]
     cof = [[0 for i in range(index + 1)] for j in range(index + 1)]
     result = read_results(index)[:-1]
+    # print(index)
+    # print(result)
 
     # slope.append(math.log(result[1]) - math.log(result[3]))
     for i in range(len(result)):
