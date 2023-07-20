@@ -50,7 +50,7 @@ def calculate(filename, n, m, bin_order, sBarList):
     return (Z_plt)
 
 
-n = 12
+n = 35
 # n = int(sys.argv[1])
 m = 500000
 D = 10
