@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import math
 from tqdm import tqdm
-import numpy as cp
+import cupy as cp
 import numpy as np
 import sys
 import matplotlib.gridspec as gridspec
@@ -96,7 +96,7 @@ def plotBar(ax, categories, values, xtick):
     bars = ax.bar(categories,
                   values,
                   color=['blue' if v > 0 else 'red' for v in values])
-    print(values)
+    # print(values)
     ax.axhline(0, color='black', linewidth=0.8)
 
     for bar in bars:
@@ -163,7 +163,7 @@ def plotHeatmap(ax, n, detail):
     fig.colorbar(im, ax=ax)
 
 
-for n in tqdm(range(12, 13, 2), desc='Processing qubit', leave=True):
+for n in tqdm(range(12, 41, 2), desc='Processing qubit', leave=True):
 
     m = 500000
     D = 10
@@ -177,7 +177,7 @@ for n in tqdm(range(12, 13, 2), desc='Processing qubit', leave=True):
                        leave=False):
         detail = dict()
 
-        filename = "Full Circuit\\e0_" + str(n) + "\\measurements_n" + str(
+        filename = "Full Circuit/e0_" + str(n) + "/measurements_n" + str(
             n) + "_m14_s" + str(-1 + filnum) + "_e0_pEFGH.txt"
 
         Z_file = [0 for i in range(n + 1)]
@@ -191,7 +191,7 @@ for n in tqdm(range(12, 13, 2), desc='Processing qubit', leave=True):
             for s_num in tqdm(range(len(sBar)), leave=False):
                 s = sBar[s_num]
                 temp = cp.bitwise_and(s, fileList)
-                # temp = temp.get()
+                temp = temp.get()
                 temp = hamming_weight(temp)
                 temp = (-1)**(temp)
                 detail[int(s)] = int(np.sum(temp)) / m
@@ -213,7 +213,7 @@ for n in tqdm(range(12, 13, 2), desc='Processing qubit', leave=True):
         plotHeatmap(ax3, n, detail)
         # plt.tight_layout()
         # plt.show()
-        plt.savefig("Full Circuit\\e0_" + str(n) + "\\s_filter" +
+        plt.savefig("Full Circuit/e0_" + str(n) + "/s_filter" +
                     str(filnum - 1))
         plt.close()
         plt.close(fig)
